@@ -14,7 +14,7 @@ app.use(cors(corseOptions));
 
 app.use(express.json()); // parse request of content type - application/JSON
 
-app.use(express.urlencoded({ extender: true })); // parse request of content type
+app.use(express.urlencoded({ extended: true })); // parse request of content type
 
 //simple route
 app.get('/', (req, res) => {
