@@ -12,7 +12,7 @@ const User = db.user;
 const Role = db.role;
 
 let jwt = require('jsonwebtoken');
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcryptjs');
 
 exports.signup = (req, res) => {
     const user = new User({
@@ -59,13 +59,16 @@ exports.signup = (req, res) => {
                 user.save(err => {
                     if(err) {
                         res.status(500).send({ message: 'User was registered successfully!' });
+                        return;
                     };
+                    res.send({ message: 'User was registered successfully!' });
                 });
             })
         }
     });
+}
 
-    exports.signin = (req, res) => {
+exports.signin = (req, res) => {
         User.findOne({
             username: req.body.username
         })
@@ -102,5 +105,5 @@ exports.signup = (req, res) => {
                     accessToken: token
                 });
             });
-    }
+    
 }

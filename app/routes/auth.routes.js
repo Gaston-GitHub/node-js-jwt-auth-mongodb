@@ -4,7 +4,7 @@
 // for Authentication and for Authorization (accessing protected resources)
 // Authentication: POST /api/auth/signup POST /api/auth/signin 
 
-const { verifySignup } = require('../middelware');
+const { verifySignUp } = require('../middelware');
 const controller = require('../controllers/auth.controller');
 
 module.exports = function(app) {
@@ -14,16 +14,16 @@ module.exports = function(app) {
             'x-acces-token, Origin, Content-Type, Accept'
         );
         next();
-    })
+    });
 
     app.post(
         '/api/auth/signup',
         [
-            verifySignup.checkDuplicateUsernameOrEmail,
-            verifySignup.checkRoleExisted
+            verifySignUp.checkDuplicateUsernameOrEmail,
+            verifySignUp.checkRoleExisted
         ],
         controller.signup
     );
 
-    app.post('api/auth/signin', controller.signin);
+    app.post('/api/auth/signin', controller.signin);
 }

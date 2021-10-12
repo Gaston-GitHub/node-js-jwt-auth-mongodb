@@ -1,7 +1,6 @@
 // Setup Express web server 
 
 const express = require('express'); // express is for building the Rest apis
-
 const cors = require('cors'); // provides Express middleware toenable CORS
 
 const app = express();
@@ -12,11 +11,13 @@ let corseOptions = {
 
 const db = require('./app/models');
 const Role = db.role;
+const dbConfig = require('./app/config/db.config')
+
 
 db.mongoose
-    .connect(`mongodb://${db.Config.HOST}:${dbConfig.PORT}/${db.Config.DB}`, {
-        userNewUrlParser: true,
-        userUnifiedTopology: true
+    .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     })
     .then(() => {
         console.log('Successfully connected to MongoDB.');
@@ -51,7 +52,7 @@ app.listen(PORT, () => {
 
 // initial functions help to create 3 importante rows in roles collection
 function initial() {
-    Role.estimatedDocumentCount((err, couunt) => {
+    Role.estimatedDocumentCount((err, count) => {
         if(!err && count === 0) {
             new Role({
                 name: 'user'

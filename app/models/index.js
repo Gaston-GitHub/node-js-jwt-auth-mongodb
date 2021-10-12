@@ -6,7 +6,7 @@
 // find User by username: Username.findOne({ username: ... })
 // finde all Roles which name in given roles array: Role.find({ name: {$in: roles}})
 
-const mongoose = require('./user.model');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const db = {};
@@ -15,5 +15,7 @@ db.mongoose = mongoose;
 
 db.user = require('./user.model');
 db.role = require('./role.model');
+
+db.ROLES = ['user', 'admin', 'moderator']
 
 module.exports = db;
